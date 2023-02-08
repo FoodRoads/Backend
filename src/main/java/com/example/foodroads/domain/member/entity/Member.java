@@ -31,7 +31,7 @@ public class Member extends BaseTimeEntity {
 
     private String socialType;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "member")
     private final List<StoreList> storeLists = new ArrayList<>();
 
 }
