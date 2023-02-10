@@ -1,6 +1,8 @@
 package com.example.foodroads.domain.auth.controller;
 
 import com.example.foodroads.common.dto.ApiResponse;
+import com.example.foodroads.config.interceptor.Auth;
+import com.example.foodroads.config.resolver.MemberId;
 import com.example.foodroads.domain.auth.service.AuthService;
 import com.example.foodroads.domain.auth.service.dto.LoginRequest;
 import com.example.foodroads.domain.auth.service.dto.LoginResponse;
@@ -27,5 +29,11 @@ public class AuthController {
         return ApiResponse.success(authService.login(request));
     }
 
+    @Auth
+    @PostMapping("/logout")
+    public ApiResponse<String> logout(@MemberId Long memberId) {
+        authService.logout(memberId);
+        return ApiResponse.success("OK");
+    }
 
 }

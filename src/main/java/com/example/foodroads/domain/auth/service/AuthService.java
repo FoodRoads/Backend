@@ -9,4 +9,6 @@ public interface AuthService {
     LoginResponse signUp(SignUpRequest request);
 
     LoginResponse login(LoginRequest request);
+
+    void logout(Long memberId);
 }

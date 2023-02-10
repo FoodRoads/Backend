@@ -3,6 +3,7 @@ package com.example.foodroads.domain.auth.service;
 import com.example.foodroads.client.provider.AuthProvider;
 import com.example.foodroads.common.exception.model.ConflictException;
 import com.example.foodroads.common.exception.model.NotFoundException;
+import com.example.foodroads.domain.auth.repository.RefreshTokenRepository;
 import com.example.foodroads.domain.auth.service.dto.LoginRequest;
 import com.example.foodroads.domain.auth.service.dto.LoginResponse;
 import com.example.foodroads.domain.auth.service.dto.SignUpRequest;
@@ -21,6 +22,8 @@ public class AuthServiceImpl implements AuthService {
     private final AuthProviderFinder authProviderFinder;
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberRepository memberRepository;
+
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
     public LoginResponse signUp(SignUpRequest request) {
@@ -53,6 +56,11 @@ public class AuthServiceImpl implements AuthService {
         String refreshToken = jwtTokenProvider.createRefreshToken(member);
 
         return LoginResponse.of(accessToken, refreshToken);
+    }
+
+    @Override
+    public void logout(Long memberId) {
+        refreshTokenRepository.deleteById(memberId);
     }
 
     private String getSocialId(@NotNull String socialType, @NotNull String token) {
