@@ -16,7 +16,7 @@ public enum ErrorCode {
     /**
      * 401 UnAuthorized (인증 실패)
      */
-    E401_UNAUTHORIZED("UA000", "세션이 만료되었습니다. 다시 로그인 해주세요"),
+    E401_UNAUTHORIZED("UA000", "토큰이 만료되었습니다. 다시 로그인 해주세요"),
 
 
     /**
