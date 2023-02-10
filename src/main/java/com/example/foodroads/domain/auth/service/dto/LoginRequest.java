@@ -6,7 +6,7 @@ import lombok.*;
 
 @ToString
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoginRequest {
 
     @NotBlank
@@ -14,4 +14,10 @@ public class LoginRequest {
 
     @NotNull
     private String socialType;
+
+    @Builder
+    private LoginRequest(String token, String  socialType) {
+        this.token = token;
+        this.socialType = socialType;
+    }
 }
