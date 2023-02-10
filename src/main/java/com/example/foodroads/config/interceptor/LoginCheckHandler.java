@@ -26,7 +26,7 @@ public class LoginCheckHandler {
         Long memberId = jwtTokenProvider.getMemberId(authorization);
 
         if (!isValidUserId(memberId)) {
-            throw new UnAuthorizedException(String.format("인증이 실패하였습니다 - 토큰(%s)에 해당하는 유저는 회원 탈퇴되거나 유효하지 않은 유저 (%s) 입니다 ", memberId, authorization));
+            throw new UnAuthorizedException(String.format("인증이 실패하였습니다 - 토큰(%s)에 해당하는 유저는 회원 탈퇴되거나 유효하지 않은 유저 입니다 ", authorization));
         }
         return memberId;
     }

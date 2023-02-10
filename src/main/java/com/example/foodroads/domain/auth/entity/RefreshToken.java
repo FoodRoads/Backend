@@ -19,4 +19,8 @@ public class RefreshToken {
     public static RefreshToken of(Member member, String refreshToken) {
         return new RefreshToken(member.getId(), refreshToken);
     }
+
+    public void updateRefreshToken(String newRefreshToken) {
+        this.refreshToken = newRefreshToken;
+    }
 }

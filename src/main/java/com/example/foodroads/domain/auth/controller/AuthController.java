@@ -36,4 +36,10 @@ public class AuthController {
         return ApiResponse.success("OK");
     }
 
+    @Auth
+    @PostMapping("/refresh")
+    public ApiResponse<LoginResponse> refresh(@MemberId Long memberId, @RequestBody String refreshToken) {
+        return ApiResponse.success(authService.refresh(memberId, refreshToken));
+    }
+
 }
