@@ -85,13 +85,12 @@ public class AuthServiceTest extends IntegrationTest {
 
             // when
             LoginResponse response = authService.login(request);
-            Long loginMemberId = jwtTokenProvider.getMemberId(response.getAccessToken());
-            RefreshToken loginRefreshToken = refreshTokenRepository.findById(loginMemberId).orElse(null);
+            List<RefreshToken> refreshTokens = refreshTokenRepository.findAll();
             // then
             assertAll(
-                    () -> assertThat(loginMemberId).isEqualTo(member.getId()),
-                    () -> assertThat(loginRefreshToken).isNotNull(),
-                    () -> assertThat(loginRefreshToken.getRefreshToken()).isEqualTo(response.getRefreshToken())
+                    () -> assertThat(jwtTokenProvider.getMemberId(response.getAccessToken())).isEqualTo(member.getId()),
+                    () -> assertThat(refreshTokens).hasSize(1),
+                    () -> assertThat(jwtTokenProvider.validateToken(response.getRefreshToken())).isTrue()
             );
         }
     }
