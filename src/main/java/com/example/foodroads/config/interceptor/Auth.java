@@ -9,6 +9,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Auth {
 
-    boolean allowNonLogin() default false;
-
 }

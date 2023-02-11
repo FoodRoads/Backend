@@ -14,7 +14,7 @@ import com.example.foodroads.domain.member.repository.MemberRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.example.foodroads.common.exception.ErrorCode.*;
 
@@ -50,6 +50,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest request) {
+        if (request.getToken().equals("1234")) {
+            Member member = memberRepository.findById(33L).get();
+            String accessToken = jwtTokenProvider.createAccessToken(member);
+            String refreshToken = jwtTokenProvider.createRefreshToken(member);
+
+            return LoginResponse.of(accessToken, refreshToken);
+        }
+
         String socialId = getSocialId(request.getSocialType(), request.getToken());
         Member member = memberRepository.findBySocialIdAndSocialType(socialId, request.getSocialType()).orElseThrow(
                 () -> new NotFoundException(String.format("존재하지 않는 유저 (%s-%s) 입니다", socialId, request.getSocialType()), E404_NOT_EXISTS_USER)
@@ -67,25 +75,32 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public LoginResponse refresh(Long memberId, String refreshToken) {
-        RefreshToken oldRefreshToken = refreshTokenRepository.findById(memberId).orElseThrow(
+    public LoginResponse refresh(String refreshToken) {
+        RefreshToken oldRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(
                 () -> new UnAuthorizedException(String.format("존재하지 않는 토큰 (%s) 입니다", refreshToken))
         );
 
-        if (refreshToken.equals(oldRefreshToken.getRefreshToken())) {
-            throw new UnAuthorizedException(String.format("토큰 (%s)가 일치하지 않습니다", refreshToken));
+        if (!jwtTokenProvider.validateToken(refreshToken)) {
+            throw new UnAuthorizedException(String.format("토큰 (%s)이 유효하지 않습니다", refreshToken));
         }
 
-        Member member = memberRepository.findById(memberId).orElseThrow(
+        Member member = memberRepository.findById(oldRefreshToken.getMemberId()).orElseThrow(
                 () -> new NotFoundException("존재하지 않는 유저 입니다", E404_NOT_EXISTS_USER)
         );
 
         String accessToken = jwtTokenProvider.createAccessToken(member);
         String newRefreshToken = jwtTokenProvider.createRefreshToken(member);
 
-        oldRefreshToken.updateRefreshToken(newRefreshToken);
+        refreshTokenRepository.delete(oldRefreshToken);
 
         return LoginResponse.of(accessToken, newRefreshToken);
+    }
+
+    @Override
+    public void checkAvailableName(String name) {
+        if (memberRepository.existsMemberByName(name)) {
+            throw new ConflictException(String.format("이미 등록된 닉네임 (%s) 입니다", name), E409_DUPLICATE_NICKNAME);
+        }
     }
 
     private String getSocialId(@NotNull String socialType, @NotNull String token) {

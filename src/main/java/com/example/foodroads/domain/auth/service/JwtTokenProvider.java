@@ -53,7 +53,7 @@ public class JwtTokenProvider {
                 .setExpiration(validity)
                 .compact();
 
-        refreshTokenRepository.save(RefreshToken.of(member, refreshToken));
+        refreshTokenRepository.save(RefreshToken.of(member, refreshToken, REFRESH_TOKEN_EXPIRE_LENGTH/1000));
 
         return refreshToken;
     }
@@ -70,7 +70,7 @@ public class JwtTokenProvider {
         try {
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
-        } catch (ExpiredJwtException | UnsupportedJwtException | IllegalStateException e) {
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException  e) {
             return false;
             //throw new UnAuthorizedException(String.format("유효하지 않는 토큰(%s) 입니다", token));
         }
