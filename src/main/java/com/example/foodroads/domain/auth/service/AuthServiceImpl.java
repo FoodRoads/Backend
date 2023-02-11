@@ -67,20 +67,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public LoginResponse refresh(Long memberId, @RequestParam String refreshToken) {
-        RefreshToken oldRefreshToken = refreshTokenRepository.findById(memberId).orElseThrow(
+    public LoginResponse refresh(String refreshToken) {
+        RefreshToken oldRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(
                 () -> new UnAuthorizedException(String.format("존재하지 않는 토큰 (%s) 입니다", refreshToken))
         );
-
-        if (!refreshToken.equals(oldRefreshToken.getRefreshToken())) {
-            throw new UnAuthorizedException(String.format("토큰 (%s)가 일치하지 않습니다", refreshToken));
-        }
 
         if (!jwtTokenProvider.validateToken(refreshToken)) {
             throw new UnAuthorizedException(String.format("토큰 (%s)이 유효하지 않습니다", refreshToken));
         }
 
-        Member member = memberRepository.findById(memberId).orElseThrow(
+        Member member = memberRepository.findById(oldRefreshToken.getMemberId()).orElseThrow(
                 () -> new NotFoundException("존재하지 않는 유저 입니다", E404_NOT_EXISTS_USER)
         );
 
