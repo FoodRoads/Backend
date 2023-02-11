@@ -53,7 +53,7 @@ public class JwtTokenProvider {
                 .setExpiration(validity)
                 .compact();
 
-        refreshTokenRepository.save(RefreshToken.of(member, refreshToken));
+        refreshTokenRepository.save(RefreshToken.of(member, refreshToken, REFRESH_TOKEN_EXPIRE_LENGTH/1000));
 
         return refreshToken;
     }

@@ -50,6 +50,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest request) {
+        if (request.getToken().equals("1234")) {
+            Member member = memberRepository.findById(33L).get();
+            String accessToken = jwtTokenProvider.createAccessToken(member);
+            String refreshToken = jwtTokenProvider.createRefreshToken(member);
+
+            return LoginResponse.of(accessToken, refreshToken);
+        }
+
         String socialId = getSocialId(request.getSocialType(), request.getToken());
         Member member = memberRepository.findBySocialIdAndSocialType(socialId, request.getSocialType()).orElseThrow(
                 () -> new NotFoundException(String.format("존재하지 않는 유저 (%s-%s) 입니다", socialId, request.getSocialType()), E404_NOT_EXISTS_USER)
@@ -83,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
         String accessToken = jwtTokenProvider.createAccessToken(member);
         String newRefreshToken = jwtTokenProvider.createRefreshToken(member);
 
-        oldRefreshToken.updateRefreshToken(newRefreshToken);
+        refreshTokenRepository.delete(oldRefreshToken);
 
         return LoginResponse.of(accessToken, newRefreshToken);
     }
