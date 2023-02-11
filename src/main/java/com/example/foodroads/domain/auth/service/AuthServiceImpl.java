@@ -14,7 +14,7 @@ import com.example.foodroads.domain.member.repository.MemberRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.example.foodroads.common.exception.ErrorCode.*;
 
@@ -67,13 +67,17 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public LoginResponse refresh(Long memberId, String refreshToken) {
+    public LoginResponse refresh(Long memberId, @RequestParam String refreshToken) {
         RefreshToken oldRefreshToken = refreshTokenRepository.findById(memberId).orElseThrow(
                 () -> new UnAuthorizedException(String.format("존재하지 않는 토큰 (%s) 입니다", refreshToken))
         );
 
-        if (refreshToken.equals(oldRefreshToken.getRefreshToken())) {
+        if (!refreshToken.equals(oldRefreshToken.getRefreshToken())) {
             throw new UnAuthorizedException(String.format("토큰 (%s)가 일치하지 않습니다", refreshToken));
+        }
+
+        if (!jwtTokenProvider.validateToken(refreshToken)) {
+            throw new UnAuthorizedException(String.format("토큰 (%s)이 유효하지 않습니다", refreshToken));
         }
 
         Member member = memberRepository.findById(memberId).orElseThrow(

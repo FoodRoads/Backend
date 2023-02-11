@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,7 +39,7 @@ public class AuthController {
 
     @Auth
     @PostMapping("/refresh")
-    public ApiResponse<LoginResponse> refresh(@MemberId Long memberId, @RequestBody String refreshToken) {
+    public ApiResponse<LoginResponse> refresh(@MemberId Long memberId, @RequestParam String refreshToken) {
         return ApiResponse.success(authService.refresh(memberId, refreshToken));
     }
 

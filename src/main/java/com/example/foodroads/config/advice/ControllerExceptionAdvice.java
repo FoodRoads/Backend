@@ -137,7 +137,7 @@ public class ControllerExceptionAdvice {
     private ApiResponse<Object> handleBaseException(FoodRoadsBaseException exception) {
 
         log.error(exception.getMessage(), exception);
-        return ApiResponse.error(exception.getErrorCode());
+        return ApiResponse.error(exception.getErrorCode(), exception.getMessage());
     }
 
     /**
