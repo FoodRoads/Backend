@@ -10,10 +10,7 @@ import com.example.foodroads.domain.auth.service.dto.SignUpRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,4 +44,10 @@ public class AuthController {
         return ApiResponse.success(authService.refresh(refreshToken));
     }
 
+    @Operation(summary = "닉네임 사용 여부를 체크 요청합니다.", description = "중복된 닉네임 CF001 예외코드")
+    @GetMapping("/user/name/check")
+    public ApiResponse<String> checkIsAvailableName(@RequestParam String name) {
+        authService.checkAvailableName(name);
+        return ApiResponse.success("OK");
+    }
 }

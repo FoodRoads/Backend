@@ -13,4 +13,6 @@ public interface AuthService {
     void logout(Long memberId);
 
     LoginResponse refresh(String refreshToken);
+
+    void checkAvailableName(String name);
 }

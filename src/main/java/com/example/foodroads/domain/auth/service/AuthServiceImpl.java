@@ -88,6 +88,13 @@ public class AuthServiceImpl implements AuthService {
         return LoginResponse.of(accessToken, newRefreshToken);
     }
 
+    @Override
+    public void checkAvailableName(String name) {
+        if (memberRepository.existsMemberByName(name)) {
+            throw new ConflictException(String.format("이미 등록된 닉네임 (%s) 입니다", name), E409_DUPLICATE_NICKNAME);
+        }
+    }
+
     private String getSocialId(@NotNull String socialType, @NotNull String token) {
 
         AuthProvider authProvider = authProviderFinder.findAuthProvider(socialType);
