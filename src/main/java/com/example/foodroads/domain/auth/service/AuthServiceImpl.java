@@ -14,7 +14,6 @@ import com.example.foodroads.domain.member.repository.MemberRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.example.foodroads.common.exception.ErrorCode.*;
 
@@ -50,13 +49,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse login(LoginRequest request) {
-        if (request.getToken().equals("1234")) {
-            Member member = memberRepository.findById(33L).get();
-            String accessToken = jwtTokenProvider.createAccessToken(member);
-            String refreshToken = jwtTokenProvider.createRefreshToken(member);
-
-            return LoginResponse.of(accessToken, refreshToken);
-        }
 
         String socialId = getSocialId(request.getSocialType(), request.getToken());
         Member member = memberRepository.findBySocialIdAndSocialType(socialId, request.getSocialType()).orElseThrow(
