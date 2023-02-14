@@ -19,14 +19,17 @@ public class SignUpRequest {
     @NotNull
     private String socialType;
 
+    private String profileImgUrl;
+
     @Builder
-    private SignUpRequest(String token, String name, String socialType) {
+    private SignUpRequest(String token, String name, String socialType, String profileImgUrl) {
         this.token = token;
         this.name = name;
         this.socialType = socialType;
+        this.profileImgUrl = profileImgUrl;
     }
 
     public Member toEntity(String socialId) {
-        return Member.newInstance(name, socialId, socialType);
+        return Member.newInstance(name, socialId, socialType, profileImgUrl);
     }
 }

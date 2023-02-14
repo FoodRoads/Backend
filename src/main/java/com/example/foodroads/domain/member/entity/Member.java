@@ -28,21 +28,25 @@ public class Member extends BaseTimeEntity {
 
     private String socialType;
 
+    private String profileImgUrl;
+
     @OneToMany(mappedBy = "member")
     private final List<StoreList> storeLists = new ArrayList<>();
 
     @Builder(access = AccessLevel.PACKAGE)
-    private Member(String name, String socialId, String socialType) {
+    private Member(String name, String socialId, String socialType, String profileImgUrl) {
         this.name = name;
         this.socialId = socialId;
         this.socialType = socialType;
+        this.profileImgUrl = profileImgUrl;
     }
 
-    public static Member newInstance(String name, String socialId, String socialType) {
+    public static Member newInstance(String name, String socialId, String socialType, String profileImgUrl) {
         return Member.builder()
                 .socialId(socialId)
                 .socialType(socialType)
                 .name(name)
+                .profileImgUrl(profileImgUrl)
                 .build();
     }
 }
