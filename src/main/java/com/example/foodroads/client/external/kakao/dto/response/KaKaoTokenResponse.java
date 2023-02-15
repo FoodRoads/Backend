@@ -16,9 +16,4 @@ public class KaKaoTokenResponse {
 
     @JsonProperty
     private String id;
-
-    public static KaKaoTokenResponse testInstance(String socialId) {
-        return new KaKaoTokenResponse(socialId);
-    }
-
 }

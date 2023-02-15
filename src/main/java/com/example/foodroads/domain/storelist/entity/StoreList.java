@@ -4,6 +4,7 @@ import com.example.foodroads.domain.member.entity.Member;
 import com.example.foodroads.domain.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,21 @@ public class StoreList {
 
     @OneToMany(mappedBy = "storeList")
     private final List<StoreListDetail> stores = new ArrayList<>();
+
+    @Builder(access = AccessLevel.PACKAGE)
+    private StoreList(Member member, String name) {
+        this.member = member;
+        this.name = name;
+    }
+
+    public static StoreList newInstance(Member member, String name) {
+        return StoreList.builder()
+                .member(member)
+                .name(name)
+                .build();
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
 }
