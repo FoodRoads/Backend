@@ -30,6 +30,7 @@ public enum ErrorCode {
      */
     E404_NOT_EXISTS("NF000", "존재하지 않습니다"),
     E404_NOT_EXISTS_USER("NF001", "탈퇴하거나 존재하지 않는 유저입니다"),
+    E404_NOT_EXISTS_STORE_LIST("NF002", "삭제되거나 존재하지 않는 맛집 리스트입니다"),
 
 
     /**

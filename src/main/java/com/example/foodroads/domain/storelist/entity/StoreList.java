@@ -40,4 +40,8 @@ public class StoreList {
                 .name(name)
                 .build();
     }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
 }

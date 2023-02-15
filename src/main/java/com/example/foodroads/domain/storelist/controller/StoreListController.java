@@ -4,7 +4,6 @@ import com.example.foodroads.common.dto.ApiResponse;
 import com.example.foodroads.config.interceptor.Auth;
 import com.example.foodroads.config.resolver.MemberId;
 import com.example.foodroads.domain.storelist.service.StoreListService;
-import com.example.foodroads.domain.storelist.service.dto.StoreDetailResponse;
 import com.example.foodroads.domain.storelist.service.dto.StoreListAddRequest;
 import com.example.foodroads.domain.storelist.service.dto.StoreListResponse;
 import com.example.foodroads.domain.storelist.service.dto.StoreListUpdateRequest;
