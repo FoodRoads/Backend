@@ -61,7 +61,7 @@ public class StoreListDetailServiceImpl implements StoreListDetailService {
 
         if (optionalStore.isPresent()) {
             store = optionalStore.get();
-            request.updateStore(store);
+            store.updateStore(request.getStoreName(), request.getStoreY(), request.getStoreY(), request.getStoreInfoUrl());
         } else {
             store = request.toStoreEntity();
             storeRepository.save(store);

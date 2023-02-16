@@ -49,8 +49,4 @@ public class StoreListDetailAddRequest {
     public Store toStoreEntity() {
         return Store.newInstance(storeId, storeName, storeX, storeY, storeInfoUrl);
     }
-
-    public void updateStore(Store store) {
-        store.updateStore(storeName, storeX, storeY, storeInfoUrl);
-    }
 }
