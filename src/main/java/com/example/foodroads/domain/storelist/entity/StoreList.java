@@ -25,7 +25,7 @@ public class StoreList {
 
     private String name;
 
-    @OneToMany(mappedBy = "storeList")
+    @OneToMany(mappedBy = "storeList", cascade = CascadeType.REMOVE)
     private final List<StoreListDetail> stores = new ArrayList<>();
 
     @Builder(access = AccessLevel.PACKAGE)
