@@ -1,7 +1,5 @@
 package com.example.foodroads.domain.storelist.service.dto;
 
-import com.example.foodroads.domain.member.entity.Member;
-import com.example.foodroads.domain.storelist.entity.StoreList;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 

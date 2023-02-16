@@ -11,6 +11,7 @@ import com.example.foodroads.domain.auth.service.dto.LoginResponse;
 import com.example.foodroads.domain.auth.service.dto.SignUpRequest;
 import com.example.foodroads.domain.member.entity.Member;
 import com.example.foodroads.domain.member.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public LoginResponse refresh(String refreshToken) {
         RefreshToken oldRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(
                 () -> new UnAuthorizedException(String.format("존재하지 않는 토큰 (%s) 입니다", refreshToken))

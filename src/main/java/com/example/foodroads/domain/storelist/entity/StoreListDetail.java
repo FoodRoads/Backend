@@ -3,6 +3,7 @@ package com.example.foodroads.domain.storelist.entity;
 import com.example.foodroads.domain.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,23 @@ public class StoreListDetail {
     private Store store;
 
     private String description;
+
+    @Builder(access = AccessLevel.PACKAGE)
+    private StoreListDetail(StoreList storeList, Store store, String description) {
+        this.storeList = storeList;
+        this.store = store;
+        this.description = description;
+    }
+
+    public static StoreListDetail newInstance(StoreList storeList, Store store, String description) {
+        return StoreListDetail.builder()
+                .storeList(storeList)
+                .store(store)
+                .description(description)
+                .build();
+    }
+
+    public void updateDescription(String description) {
+        this.description = description;
+    }
 }
