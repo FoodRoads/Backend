@@ -50,4 +50,10 @@ public class StoreListController {
         storeListService.deleteStoreList(storeListId, memberId);
         return ApiResponse.success("OK");
     }
+
+    @Operation(summary = "맛집 리스트들을 keyword로 검색합니다.")
+    @GetMapping("/storelists/search")
+    ApiResponse<List<StoreListResponse>> searchStoreLists(@RequestParam String keyword) {
+        return ApiResponse.success(storeListService.searchStoreLists(keyword));
+    }
 }

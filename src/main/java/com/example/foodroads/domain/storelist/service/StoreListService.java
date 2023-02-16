@@ -14,4 +14,6 @@ public interface StoreListService {
     StoreListResponse updateStoreList(Long storeListId, StoreListUpdateRequest request, Long memberId);
 
     void deleteStoreList(Long storeListId, Long memberId);
+
+    List<StoreListResponse> searchStoreLists(String keyword);
 }
