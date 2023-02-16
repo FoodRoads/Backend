@@ -21,12 +21,16 @@ public abstract class PreparedStoreListIntegrationTest extends PreparedMemberInt
 
     @BeforeEach
     void setUpStoreList() {
+        System.out.println("맛집 리스트 생성 시작");
         storeList = storeListRepository.save(StoreList.newInstance(member, NAME));
         storeListId = storeList.getId();
+        System.out.println("맛집 리스트 " + storeListId + " 생성 완료");
     }
 
     @AfterEach
-    protected void cleanup() {
+    protected void cleanUpStoreList() {
+        System.out.println("맛집 리스트 " + storeListId + " 삭제 시작");
         storeListRepository.delete(storeList);
+        System.out.println("맛집 리스트 " + storeListId + " 삭제 완료");
     }
 }

@@ -25,7 +25,7 @@ public class StoreListServiceTest extends PreparedMemberIntegrationTest {
     private StoreListRepository storeListRepository;
 
     @AfterEach
-    void cleanUp() {
+    void cleanUpStoreList() {
         storeListRepository.deleteAll();
     }
 

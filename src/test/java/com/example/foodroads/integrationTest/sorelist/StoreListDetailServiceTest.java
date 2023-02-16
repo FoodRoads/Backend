@@ -2,7 +2,6 @@ package com.example.foodroads.integrationTest.sorelist;
 
 import com.example.foodroads.domain.store.entity.Store;
 import com.example.foodroads.domain.store.repository.StoreRepository;
-import com.example.foodroads.domain.storelist.entity.StoreList;
 import com.example.foodroads.domain.storelist.entity.StoreListDetail;
 import com.example.foodroads.domain.storelist.repository.StoreListDetailRepository;
 import com.example.foodroads.domain.storelist.service.StoreListDetailService;
@@ -133,8 +132,12 @@ public class StoreListDetailServiceTest extends PreparedStoreListIntegrationTest
 
             // then
             List<StoreListDetail> storeListDetails = storeListDetailRepository.findAll();
+            List<Store> stores = storeRepository.findAll();
 
-            assertThat(storeListDetails).hasSize(0);
+            assertAll(
+                    () -> assertThat(storeListDetails).hasSize(0),
+                    () -> assertThat(stores).hasSize(1)
+            );
         }
     }
 }
