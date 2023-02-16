@@ -1,6 +1,5 @@
 package com.example.foodroads.domain.storelist.service.dto;
 
-import com.example.foodroads.domain.storelist.entity.StoreList;
 import com.example.foodroads.domain.storelist.entity.StoreListDetail;
 import lombok.*;
 
@@ -8,11 +7,11 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class StoreDetailResponse {
+public class StoreListDetailResponse {
 
     private Long storeListDetailId;
 
-    private Long storeId;
+    private String storeId;
 
     private String storeName;
 
@@ -24,8 +23,8 @@ public class StoreDetailResponse {
 
     private String description;
 
-    public static StoreDetailResponse of(StoreListDetail storeListDetail) {
-        return new StoreDetailResponse(storeListDetail.getId(), storeListDetail.getStore().getId(),
+    public static StoreListDetailResponse of(StoreListDetail storeListDetail) {
+        return new StoreListDetailResponse(storeListDetail.getId(), storeListDetail.getStore().getId(),
                 storeListDetail.getStore().getName(), storeListDetail.getStore().getX(), storeListDetail.getStore().getY(),
                 storeListDetail.getStore().getUrl(), storeListDetail.getDescription());
     }
