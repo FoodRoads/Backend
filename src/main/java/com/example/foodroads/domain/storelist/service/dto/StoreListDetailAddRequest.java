@@ -3,6 +3,7 @@ package com.example.foodroads.domain.storelist.service.dto;
 import com.example.foodroads.domain.store.entity.Store;
 import com.example.foodroads.domain.storelist.entity.StoreList;
 import com.example.foodroads.domain.storelist.entity.StoreListDetail;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @ToString
@@ -10,16 +11,22 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StoreListDetailAddRequest {
 
+    @NotBlank
     private Long storeListId;
 
+    @NotBlank
     private String storeId;
 
+    @NotBlank
     private String storeName;
 
+    @NotBlank
     private String storeX;
 
+    @NotBlank
     private String storeY;
 
+    @NotBlank
     private String storeInfoUrl;
 
     private String description;
