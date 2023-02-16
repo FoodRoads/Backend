@@ -71,4 +71,11 @@ public class StoreListServiceImpl implements StoreListService {
 
         storeListRepository.delete(storeList);
     }
+
+    @Override
+    public List<StoreListResponse> searchStoreLists(String keyword) {
+        return storeListRepository.searchByKeyword(keyword).stream()
+                .map(StoreListResponse::of)
+                .collect(Collectors.toList());
+    }
 }
