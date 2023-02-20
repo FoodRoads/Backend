@@ -1,5 +1,6 @@
 package com.example.foodroads.domain.storelist.service.dto;
 
+import com.example.foodroads.domain.member.service.dto.MemberInfoResponse;
 import com.example.foodroads.domain.storelist.entity.StoreList;
 import lombok.*;
 
@@ -13,7 +14,9 @@ public class StoreListResponse {
 
     private String storeListName;
 
+    private MemberInfoResponse memberInfo;
+
     public static StoreListResponse of(StoreList storeList) {
-        return new StoreListResponse(storeList.getId(), storeList.getName());
+        return new StoreListResponse(storeList.getId(), storeList.getName(), MemberInfoResponse.of(storeList.getMember()));
     }
 }
