@@ -23,7 +23,7 @@ public class MemberController {
         return ApiResponse.success(memberService.getMember(memberId));
     }
 
-    @Operation(summary = "나의 정보를 조회합니다.")
+    @Operation(summary = "[인증 헤더 필요]나의 정보를 조회합니다.")
     @Auth
     @GetMapping("/members/me")
     ApiResponse<MemberInfoResponse> getMyInfo(@MemberId Long memberId) {

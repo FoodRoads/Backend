@@ -30,7 +30,7 @@ public class AuthController {
         return ApiResponse.success(authService.login(request));
     }
 
-    @Operation(summary = "로그아웃을 요청합니다.")
+    @Operation(summary = "[인증 헤더 필요] 로그아웃을 요청합니다.")
     @Auth
     @PostMapping("/logout")
     public ApiResponse<String> logout(@MemberId Long memberId) {

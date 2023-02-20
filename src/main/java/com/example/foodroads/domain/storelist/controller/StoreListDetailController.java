@@ -26,7 +26,7 @@ public class StoreListDetailController {
         return ApiResponse.success(storeListDetailService.getStoreListDetails(storeListId));
     }
 
-    @Operation(summary = "특정 맛집 리스트에 맛집을 등록합니다.")
+    @Operation(summary = "[인증 헤더 필요] 특정 맛집 리스트에 맛집을 등록합니다.")
     @Auth
     @PostMapping("/storelist/detail")
     ApiResponse<StoreListDetailResponse> addMyStoreListDetail(@Valid @RequestBody StoreListDetailAddRequest request,
@@ -34,7 +34,7 @@ public class StoreListDetailController {
         return ApiResponse.success(storeListDetailService.addStoreListDetail(memberId, request));
     }
 
-    @Operation(summary = "특정 맛집 리스트에 등록한 맛집을 수정합니다.")
+    @Operation(summary = "[인증 헤더 필요] 특정 맛집 리스트에 등록한 맛집을 수정합니다.")
     @Auth
     @PatchMapping("/storelist/detail/{storeListDetailId}")
     ApiResponse<StoreListDetailResponse> updateMyStoreListDetail(@PathVariable Long storeListDetailId,
@@ -43,7 +43,7 @@ public class StoreListDetailController {
         return ApiResponse.success(storeListDetailService.updateStoreListDetail(storeListDetailId, request, memberId));
     }
 
-    @Operation(summary = "특정 맛집 리스트에 등록한 맛집을 삭제합니다.")
+    @Operation(summary = "[인증 헤더 필요] 특정 맛집 리스트에 등록한 맛집을 삭제합니다.")
     @Auth
     @DeleteMapping("/storelist/detail/{storeListDetailId}")
     ApiResponse<String> deleteMyStoreListDetail(@PathVariable Long storeListDetailId, @MemberId Long memberId) {
