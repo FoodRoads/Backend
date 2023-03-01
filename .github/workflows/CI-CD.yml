@@ -12,10 +12,15 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  ci:
+    name: CI
+    uses: ./.github/workflows/CI-build-test.yml
 
+  delivery:
+    name: Delivery
     runs-on: ubuntu-latest
-
+    needs:
+      - ci
     steps:
       - name: Checkout with submodules
         uses: actions/checkout@v3
@@ -44,7 +49,12 @@ jobs:
           docker build -t ${{ secrets.DOCKER_REPO }} .
           docker push ${{ secrets.DOCKER_REPO }}
             
-      ## 서버에 접속하여 도커 이미지를 pull 받고 실행하기
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs:
+      - delivery
+    steps:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v0.1.6
         with:

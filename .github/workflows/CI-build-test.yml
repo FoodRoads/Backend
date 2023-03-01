@@ -1,0 +1,44 @@
+name: "[CI] Build & Test"
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout@v3
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: adopt
+          cache: gradle
+
+      - name: Build (without check task)
+        run: ./gradlew clean build -x check --warning-mode all
+
+  integration-test:
+    name: Integration Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout@v3
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: adopt
+          cache: gradle
+
+      - name: Integration Test
+        run: ./gradlew test
