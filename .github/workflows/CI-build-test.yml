@@ -44,5 +44,9 @@ jobs:
           distribution: adopt
           cache: gradle
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        shell: bash
+
       - name: Integration Test
         run: ./gradlew test
