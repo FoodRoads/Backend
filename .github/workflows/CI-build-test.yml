@@ -5,7 +5,7 @@ on:
   workflow_call:
     secrets:
       ACTION_TOKEN:
-        require: true
+        required: true
 
 jobs:
   build:
