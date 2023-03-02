@@ -14,8 +14,11 @@ import java.io.IOException;
 public class TestRedisConfig {
     private RedisServer redisServer;
 
-    public TestRedisConfig(@Value("${spring.data.redis.port}") int redisPort    ) {
-        this.redisServer = new RedisServer(redisPort);
+    public TestRedisConfig(@Value("${spring.data.redis.port}") int redisPort) {
+        this.redisServer = RedisServer.builder()
+                .port(redisPort)
+                .setting("maxmemory 128M")
+                .build();
     }
 
     @PostConstruct
