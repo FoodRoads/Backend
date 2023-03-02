@@ -15,6 +15,9 @@ jobs:
   ci:
     name: CI
     uses: ./.github/workflows/CI-build-test.yml
+    secrets:
+      ACTION_TOKEN: ${{ secrets.ACTION_TOKEN }}
+
 
   delivery:
     name: Delivery
