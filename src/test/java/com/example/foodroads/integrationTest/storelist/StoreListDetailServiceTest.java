@@ -1,4 +1,4 @@
-package com.example.foodroads.integrationTest.sorelist;
+package com.example.foodroads.integrationTest.storelist;
 
 import com.example.foodroads.domain.store.entity.Store;
 import com.example.foodroads.domain.store.repository.StoreRepository;
@@ -36,9 +36,9 @@ public class StoreListDetailServiceTest extends PreparedStoreListIntegrationTest
     }
 
     @Nested
-    class AddStoreListTest {
+    class AddStoreListDetailTest {
         @Test
-        void 해당_멤버의_새로운_맛집_리스트를_등록합니다() {
+        void 해당_멤버의_리스트에_새로운_맛집을_등록합니다() {
             //given
             String storeId = "맛집ID";
             String storeName = "맛집 이름";
@@ -73,9 +73,9 @@ public class StoreListDetailServiceTest extends PreparedStoreListIntegrationTest
     }
 
     @Nested
-    class UpdateStoreListTest {
+    class UpdateStoreListDetailTest {
         @Test
-        void 내가_추가한_맛집_리스트를_수정합니다() {
+        void 내가_추가한_맛집을_수정합니다() {
             //given
             String storeId = "맛집ID";
             String storeName = "맛집 이름";
@@ -110,10 +110,10 @@ public class StoreListDetailServiceTest extends PreparedStoreListIntegrationTest
     }
 
     @Nested
-    class DeleteStoreListTest {
+    class DeleteStoreListDetailTest {
 
         @Test
-        void 내가_추가한_맛집_리스트를_삭제합니다() {
+        void 내가_추가한_맛집을_삭제합니다() {
             // given
             String storeId = "맛집ID";
             String storeName = "맛집 이름";
