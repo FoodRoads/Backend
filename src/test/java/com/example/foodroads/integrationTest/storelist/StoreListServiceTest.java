@@ -1,4 +1,4 @@
-package com.example.foodroads.integrationTest.sorelist;
+package com.example.foodroads.integrationTest.storelist;
 
 import com.example.foodroads.domain.storelist.entity.StoreList;
 import com.example.foodroads.domain.storelist.repository.StoreListRepository;
